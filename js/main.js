@@ -21,6 +21,9 @@ function askNumbers(n,userNumbers,array){
     display.innerHTML='';
     for(let i=0;i<n;i++){
         userNumbers[i]=prompt('Inserisci il '+(i+1)+'° numero');
+        while(isNaN(userNumbers[i])){
+            userNumbers[i]=prompt('Inserisci il '+(i+1)+'° numero');
+        }
     }
     checkNumbers(userNumbers,array,n);
 }
@@ -32,13 +35,18 @@ function checkNumbers(userNumbers,array,n){
     for(let i=0; i<n;i++){
         display.innerHTML += array[i]+' ';
         if(userNumbers[i] == array[i]){
-            result.innerHTML+= userNumbers[i]+' ';
+            result.innerHTML+="<span class='text-primary'>"+ userNumbers[i]+"<span> ";
             counter++;
+        }else{
+            result.innerHTML+="<span class='text-danger'>"+ userNumbers[i]+"<span> ";
         }
     }
     if(counter==n){
         result.innerHTML+="<br>  Congratulazioni! Hai indovinato tutti i numeri";
-    }else{
+    }else if(counter == 0){
+        result.innerHTML+="<br> Peccato! Non hai indovinato nessun numero.";
+    }
+    else{
         result.innerHTML+="<br> Bravo! Hai indovinato "+counter+" numeri";
     }
 }
